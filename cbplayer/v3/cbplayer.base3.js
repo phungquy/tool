@@ -14,10 +14,6 @@ var CBPlayer = CBPlayer || (function() {
         get_player: function() {
             if (!isLoadjwplayer){
                 jQuery.ajax({
-                    /*url: '//content.jwplatform.com/libraries/V6NfEzT7.js',
-                    url: '//content.jwplatform.com/libraries/VD8tlfTf.js',
-                    url: '//content.jwplatform.com/libraries/lqsWlr4Z.js',
-                    url: '//content.jwplatform.com/libraries/5QOesuLn.js',*/
                     url: link_source,
                     cache: true,async:false,
                     success : function() {
@@ -30,7 +26,7 @@ var CBPlayer = CBPlayer || (function() {
                 })
                 .always(function() {
                     isLoadjwplayer = true;
-                    console.log("complete");
+                    //console.log("complete");
                 });
             }else{
                 _CBPlayer(_args);
@@ -46,33 +42,33 @@ function _CBPlayer(_args){
     var logo = base_url + "/media/general/logo/logo.png";
     var scrollFixedView = _args.scrollFixedView ? _args.scrollFixedView : false;
     var scrollPlay = !_args.scrollPlay ? _args.scrollPlay : true;
-    var nextOnepage = _args.nextOnepage ? _args.nextOnepage : false;
-    var player_params = _args;
-    player_params.file = get_link_video(_args.file);
-    if(!player_params.aspectratio){        
-        player_params.height = _args.height ? _args.height : '405px';
-        player_params.width = _args.width ? _args.width : '720px';
-    }else{
-        player_params.width = '100%';
-    }
-    player_params.autostart = _args.autostart ? _args.autostart : false;
-    player_params.stretching = _args.stretching ? _args.stretching : "bestfit";
-    player_params.abouttext = _args.abouttext ? _args.abouttext : "<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAABp0lEQVR42t2USy8DURTHKyzExoZIrEnaqB1ha6F7fAJh6wvYSmx8AKSpika1ERLahBAiNp5hoaQSIbpAvNp7Ozp3Xo5zr2nj0WamVITFPzM5OfObc//nnOtwkLHnH5H5AiXX74NTpkoGRpiLhGAoswe90tr3wcPSvng20TAwXQPDMIR88snXwGWoafkUdEOH0cwRJDU5B+W60tIip2hwM1bIAQmVQC2ZhDY6B1RnIsZ/NiBtirxyMg6NJAg1mGMLPPi0LSCedDQXc5IZeNQyMGHaUE18EGUXuVN00AVr8KFyK5Kd2LC38TrihwqsspJ4Iabeieqz4C3l2hpMTU/r6dSnZH78XXbzznOugBy3Bp+pSZHsRq/zeecmYXhAW7JQ1dDARUPW4BH5QHzQJS0V7Dj3nGoMJF3BBvvtNY9PAQen0JIGGiwI53ktdNb+uPEGBVhcwGPKPXSmI3krXmUJWGTnxW9eBD/icAW3bge73i9tQJ+0DivsEpimgoZxr3z8tbuCL8PHCcjKk+ck9i+h1OsytNN56JGWoRvVit5W4Sz/gfv434NfAC4uL7CTBQEaAAAAAElFTkSuQmCC' alt='cungbiet.com' style='width: 21px !important;height: 100%;max-height: 100%;margin: -0.5em auto -0.5em -0.5em;display:inline;'> CB Player 2.0";
-    player_params.aboutlink = _args.aboutlink ? _args.aboutlink : "https://cungbiet.com";
-    player_params.controlLogo = _args.controlLogo ? _args.controlLogo : false;
-    /*
-    player_params.ga = {
-        idstring: "title",
-        trackingobject: "pageTracker"
-    };
-    */
-    player_params.primary = _args.primary ? _args.primary : 'flash';
+    var nextOnepage = _args.nextOnepage ? _args.nextOnepage : false;      
     _args.element = _args.element ? _args.element : 'cb-player';
     if(videoType(_args.file) =='dailymotion'){
         var link_embed = 'https://www.dailymotion.com/embed/video/'+get_id_video(_args.file),
         link_embed = _args.autostart ? link_embed+'?autoPlay=1' : link_embed;
         jQuery('#'+_args.element).html("<div class=\"video-iframe\"><iframe src=\""+link_embed+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" allow=\"autoplay\"></iframe></div>");
     }else{
+        var player_params = _args;    
+        if(!player_params.aspectratio){        
+            player_params.height = _args.height ? _args.height : '405px';
+            player_params.width = _args.width ? _args.width : '720px';
+        }else{
+            player_params.width = '100%';
+        }
+        player_params.autostart = _args.autostart ? _args.autostart : false;
+        player_params.stretching = _args.stretching ? _args.stretching : "bestfit";
+        player_params.abouttext = _args.abouttext ? _args.abouttext : "<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAABp0lEQVR42t2USy8DURTHKyzExoZIrEnaqB1ha6F7fAJh6wvYSmx8AKSpika1ERLahBAiNp5hoaQSIbpAvNp7Ozp3Xo5zr2nj0WamVITFPzM5OfObc//nnOtwkLHnH5H5AiXX74NTpkoGRpiLhGAoswe90tr3wcPSvng20TAwXQPDMIR88snXwGWoafkUdEOH0cwRJDU5B+W60tIip2hwM1bIAQmVQC2ZhDY6B1RnIsZ/NiBtirxyMg6NJAg1mGMLPPi0LSCedDQXc5IZeNQyMGHaUE18EGUXuVN00AVr8KFyK5Kd2LC38TrihwqsspJ4Iabeieqz4C3l2hpMTU/r6dSnZH78XXbzznOugBy3Bp+pSZHsRq/zeecmYXhAW7JQ1dDARUPW4BH5QHzQJS0V7Dj3nGoMJF3BBvvtNY9PAQen0JIGGiwI53ktdNb+uPEGBVhcwGPKPXSmI3krXmUJWGTnxW9eBD/icAW3bge73i9tQJ+0DivsEpimgoZxr3z8tbuCL8PHCcjKk+ck9i+h1OsytNN56JGWoRvVit5W4Sz/gfv434NfAC4uL7CTBQEaAAAAAElFTkSuQmCC' alt='cungbiet.com' style='width: 21px !important;height: 100%;max-height: 100%;margin: -0.5em auto -0.5em -0.5em;display:inline;'> CB Player 2.0";
+        player_params.aboutlink = _args.aboutlink ? _args.aboutlink : "https://cungbiet.com";
+        player_params.controlLogo = _args.controlLogo ? _args.controlLogo : false;
+        /*
+        player_params.ga = {
+            idstring: "title",
+            trackingobject: "pageTracker"
+        };
+        */  
+        player_params.primary = _args.primary ? _args.primary : 'flash';
+        player_params.file = get_link_video(_args.file);
         var _player = jwplayer(_args.element).setup(player_params).on('ready', function() {
             if(player_params.controlLogo){
                 logo = _args.player_logo ? _args.player_logo : logo;
