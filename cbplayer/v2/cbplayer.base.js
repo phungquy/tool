@@ -113,6 +113,16 @@ function _CBPlayer(_args){
             }
         }
     });
+    _player.on("error", function () {
+        swal({
+            title: "Ancok Error!",
+            text: "Please wait, we are switching to another server!",
+            timer: 3000
+        })
+    });
+    _player.on("error", function () {
+        $("#ancok-player").html("<div class=\"ancok-iframe\"> <iframe src=\""+_args.file+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>")
+    });
     if(scrollPlay){
         var _element = jQuery('#'+_args.element),
             topVideo = _element.offset().top+_element.outerHeight();
