@@ -13,8 +13,9 @@ var CBPlayer = CBPlayer || (function() {
         },
         get_player: function() {
             if(videoType(_args.file) =='dailymotion'){
-                var link_embed = 'https://www.dailymotion.com/embed/video/'+get_id_video(_args.file);
-                jQuery('#'+_args.element).html("<div class=\"video-iframe\"> <iframe src=\""+link_embed+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>");
+                var link_embed = 'https://www.dailymotion.com/embed/video/'+get_id_video(_args.file),
+                link_embed = _args.autostart ? link_embed+'?autoPlay=1' : link_embed;
+                jQuery('#'+_args.element).html("<div class=\"video-iframe\"><iframe src=\""+link_embed+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" allow=\"autoplay\"></iframe></div>");
             }else{
                 if (!isLoadjwplayer){
                     jQuery.ajax({
@@ -92,7 +93,7 @@ function _CBPlayer(_args){
         document.getElementsByTagName("head")[0].appendChild(hidePowerjw);
         if(scrollFixedView){
             var style = document.createElement("style");
-            style.appendChild(document.createTextNode(".jwplayer.fix-video{position:fixed;top:50px;left:10px;width:300px !important;z-index:10;border-radius:4px;}"));
+            style.appendChild(document.createTextNode("#"+_args.element+".fix-video{position:fixed;top:50px;left:10px;width:300px !important;z-index:10;border-radius:4px;}"));
             document.head.appendChild(style);
 
             var _element = jQuery('#'+_args.element),
@@ -139,7 +140,7 @@ function _CBPlayer(_args){
     });
     if(scrollPlay){
         var _element = jQuery('#'+_args.element),
-            topVideo = _element.offset().top+_element.outerHeight();
+            topVideo = _element.offset().top+_element.outerHeight(),
             bottomVideo = _element.offset().top-_element.outerHeight();
         jQuery(document).scroll(function(e){
             if(isScrolledIntoView(_element)){
