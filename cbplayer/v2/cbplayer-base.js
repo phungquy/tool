@@ -13,13 +13,8 @@ var CBPlayer = CBPlayer || (function() {
         },
         get_player: function() {
             if(videoType(_args.file) =='dailymotion'){
-                swal({
-                    icon: "warning",
-                    text: "Please wait, we are switching to another server!",
-                    timer: 3000
-                });
-                jQuery('#'+_args.element).html("<div class=\"video-iframe\"> <iframe src=\""+_args.file+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>");
-
+                var link_embed = 'https://www.dailymotion.com/embed/video/'+get_id_video(_args.file);
+                jQuery('#'+_args.element).html("<div class=\"video-iframe\"> <iframe src=\""+link_embed+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>");
             }else{
                 if (!isLoadjwplayer){
                     jQuery.ajax({
@@ -157,30 +152,7 @@ function _CBPlayer(_args){
             }
         });
     }    
-    
-    
-    
-    /*console.log(player_params);
-    if(!_args.isHover) {
-        setTimeout(
-            function(){
-                jwplayer().play();
-            }, 1500
-        );
-    }*/
 }
-/* function isScrolledIntoView(elem){
-    var $elem = elem;
-    var $window = jQuery(window);
-
-    var docViewTop = $window.scrollTop();
-    var docViewBottom = docViewTop + $window.height();
-
-    var elemTop = $elem.offset().top;
-    var elemBottom = elemTop + $elem.height();
-
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-} */
 function isScrolledIntoView(elem)
 {
     var docViewTop = jQuery(window).scrollTop();
@@ -203,6 +175,33 @@ function get_link_video(url) {
                 break;
             case 'dailymotion':
                 return null;
+                break;
+            default:
+                return url;
+        }
+    }
+}
+function get_id_video(url) {
+    if(url || url!=null){
+        switch(videoType(url)) {
+            case 'youtube':
+                var regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/,
+                    videoId = url.match(regExp);
+                if (videoId && videoId[1].length === 11) {
+                    return videoId[1];
+                }
+                break;
+            case 'vimeo':
+                return null;
+                break;
+            case 'dailymotion':
+                var m = url.match(/^.+[dailymotion.com|dai.ly]\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/);
+                if (m !== null) {
+                    if(m[4] !== undefined) {
+                        return m[4];
+                    }
+                    return m[2];
+                }
                 break;
             default:
                 return url;
