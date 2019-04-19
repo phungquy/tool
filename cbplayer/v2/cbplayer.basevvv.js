@@ -12,35 +12,35 @@ var CBPlayer = CBPlayer || (function() {
             link_source = videoType(_args.file) =='youtube' ? '//content.jwplatform.com/libraries/5QOesuLn.js' : '//content.jwplatform.com/libraries/lqsWlr4Z.js';
         },
         get_player: function() {
-            if (!isLoadjwplayer){
-                jQuery.ajax({
-                    /*url: '//content.jwplatform.com/libraries/V6NfEzT7.js',
-                    url: '//content.jwplatform.com/libraries/VD8tlfTf.js',
-                    url: '//content.jwplatform.com/libraries/lqsWlr4Z.js',
-                    url: '//content.jwplatform.com/libraries/5QOesuLn.js',*/
-                    url: link_source,
-                    cache: true,async:false,
-                    success : function() {
-                    isLoadjwplayer = true;
-                    _CBPlayer(_args);
-                    }
-                })              
-                .fail(function() {
-                    console.log("error");
-                })
-                .always(function() {
-                    isLoadjwplayer = true;
-                    console.log("complete");
+            if(videoType(_args.file) =='dailymotion'){
+                swal({
+                    icon: "warning",
+                    text: "Please wait, we are switching to another server!",
+                    timer: 3000
                 });
-            }else{
-                if(videoType(_args.file) =='dailymotion'){
-                    swal({
-                        icon: "warning",
-                        text: "Please wait, we are switching to another server!",
-                        timer: 3000
-                    });
-                    jQuery('#'+_args.element).html("<div class=\"video-iframe\"> <iframe src=\""+_args.file+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>");
+                jQuery('#'+_args.element).html("<div class=\"video-iframe\"> <iframe src=\""+_args.file+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>");
 
+            }else{
+                if (!isLoadjwplayer){
+                    jQuery.ajax({
+                        /*url: '//content.jwplatform.com/libraries/V6NfEzT7.js',
+                        url: '//content.jwplatform.com/libraries/VD8tlfTf.js',
+                        url: '//content.jwplatform.com/libraries/lqsWlr4Z.js',
+                        url: '//content.jwplatform.com/libraries/5QOesuLn.js',*/
+                        url: link_source,
+                        cache: true,async:false,
+                        success : function() {
+                        isLoadjwplayer = true;
+                        _CBPlayer(_args);
+                        }
+                    })              
+                    .fail(function() {
+                        console.log("error");
+                    })
+                    .always(function() {
+                        isLoadjwplayer = true;
+                        console.log("complete");
+                    });
                 }else{
                     _CBPlayer(_args);
                 }
