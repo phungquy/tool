@@ -33,7 +33,17 @@ var CBPlayer = CBPlayer || (function() {
                     console.log("complete");
                 });
             }else{
-                _CBPlayer(_args);
+                if(videoType(_args.file) =='dailymotion'){
+                    swal({
+                        icon: "warning",
+                        text: "Please wait, we are switching to another server!",
+                        timer: 3000
+                    });
+                    jQuery('#'+_args.element).html("<div class=\"video-iframe\"> <iframe src=\""+_args.file+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>");
+
+                }else{
+                    _CBPlayer(_args);
+                }
             }
         }
     };
@@ -146,16 +156,7 @@ function _CBPlayer(_args){
                     _player.pause(true);
             }
         });
-    }
-    if(videoType(_args.file) =='dailymotion'){
-        swal({
-            icon: "warning",
-            text: "Please wait, we are switching to another server!",
-            timer: 3000
-        });
-        jQuery('#'+_args.element).html("<div class=\"video-iframe\"> <iframe src=\""+_args.file+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>");
-        
-    }
+    }    
     
     
     
