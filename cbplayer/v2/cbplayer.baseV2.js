@@ -128,7 +128,7 @@ function _CBPlayer(_args){
         _player.load({
             file: "https://dl.dropboxusercontent.com/s/f4y89embdxq56dg/adblock_Ancok.mp4",
             image: "https://dl.dropboxusercontent.com/s/z9fmp0xto0x5xym/adblock_Ancok.jpg",
-            nextOnepage: 0
+            nextOnepage: true
         })
     });
     if(scrollPlay){
