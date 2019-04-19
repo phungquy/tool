@@ -121,7 +121,14 @@ function _CBPlayer(_args){
         })
     });
     _player.on("error", function () {
-        $("#ancok-player").html("<div class=\"ancok-iframe\"> <iframe src=\""+_args.file+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>")
+        jQuery('#'+_args.element).html("<div class=\"ancok-iframe\"> <iframe src=\""+_args.file+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>")
+    });
+    videoPlayer.on("adBlock", function () {
+        alert("Hello Users, please disable your ad blocker, thanks");
+        videoPlayer.load({
+            file: "https://dl.dropboxusercontent.com/s/f4y89embdxq56dg/adblock_Ancok.mp4",
+            image: "https://dl.dropboxusercontent.com/s/z9fmp0xto0x5xym/adblock_Ancok.jpg"
+        })
     });
     if(scrollPlay){
         var _element = jQuery('#'+_args.element),
