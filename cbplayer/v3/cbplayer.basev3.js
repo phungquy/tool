@@ -85,23 +85,7 @@ function _CBPlayer(_args){
             } else {
                 hidePowerjw.appendChild(document.createTextNode(cssCode));
             }
-            document.getElementsByTagName("head")[0].appendChild(hidePowerjw);
-            if(scrollFixedView){
-                var style = document.createElement("style");
-                style.appendChild(document.createTextNode("#"+_args.element+".fix-video{position:fixed;top:50px;left:10px;width:300px !important;z-index:10;border-radius:4px;}"));
-                document.head.appendChild(style);
-
-                var _element = jQuery('#'+_args.element),
-                    topVideo = _element.offset().top+_element.outerHeight();
-                jQuery(document).scroll(function(e){
-                    var scrollTop = jQuery(document).scrollTop();    
-                    if(scrollTop > topVideo){
-                        _element.addClass('fix-video');
-                    } else {
-                        _element.removeClass('fix-video');
-                    }
-                });
-            }     
+            document.getElementsByTagName("head")[0].appendChild(hidePowerjw);                
         });
         _player.on('playlistItem', function(){
             if (nextOnepage) {
@@ -134,6 +118,22 @@ function _CBPlayer(_args){
             })
         });
     }
+    if(scrollFixedView){
+        var style = document.createElement("style");
+        style.appendChild(document.createTextNode("#"+_args.element+".fix-video{position:fixed;top:50px;left:10px;width:300px !important;z-index:10;border-radius:4px;}"));
+        document.head.appendChild(style);
+
+        var _element = jQuery('#'+_args.element),
+            topVideo = _element.offset().top+_element.outerHeight();
+        jQuery(document).scroll(function(e){
+            var scrollTop = jQuery(document).scrollTop();    
+            if(scrollTop > topVideo){
+                _element.addClass('fix-video');
+            } else {
+                _element.removeClass('fix-video');
+            }
+        });
+    } 
     if(scrollPlay){
         var _element = jQuery('#'+_args.element),
             topVideo = _element.offset().top+_element.outerHeight(),
