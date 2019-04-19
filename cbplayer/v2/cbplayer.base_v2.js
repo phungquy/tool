@@ -124,8 +124,8 @@ function _CBPlayer(_args){
         jQuery('#'+_args.element).html("<div class=\"ancok-iframe\"> <iframe src=\""+_args.file+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" class=\"ancok-box\"></iframe></div>")
     });
     _player.on("adBlock", function () {
-        alert("Hello Users, please disable your ad blocker, thanks");
-        videoPlayer.load({
+        //alert("Hello Users, please disable your ad blocker, thanks");
+        _player.load({
             file: "https://dl.dropboxusercontent.com/s/f4y89embdxq56dg/adblock_Ancok.mp4",
             image: "https://dl.dropboxusercontent.com/s/z9fmp0xto0x5xym/adblock_Ancok.jpg"
         })
