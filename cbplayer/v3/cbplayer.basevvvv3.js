@@ -88,7 +88,7 @@ function _CBPlayer(_args){
             }
             document.getElementsByTagName("head")[0].appendChild(hidePowerjw); 
             if(scrollFixedView){
-                scrollFixedView(_args.element);
+                _ScrollFixedView(_args.element);
             }                
         });
         _player.on('playlistItem', function(){
@@ -123,7 +123,7 @@ function _CBPlayer(_args){
         });
     }
     if(scrollFixedView){
-        scrollFixedView(_args.element);
+        _ScrollFixedView(_args.element);
     } 
     if(scrollPlay){
         var _element = jQuery('#'+_args.element),
@@ -141,7 +141,7 @@ function _CBPlayer(_args){
         });
     }    
 }
-function scrollFixedView(elem)
+function _ScrollFixedView(elem)
 {
     var style = document.createElement("style");
     style.appendChild(document.createTextNode("#"+elem+".fix-video{position:fixed;top:50px;left:10px;width:300px !important;z-index:10;border-radius:4px;}"));
