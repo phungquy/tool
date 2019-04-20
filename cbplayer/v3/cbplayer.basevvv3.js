@@ -44,25 +44,9 @@ function _CBPlayer(_args){
     var scrollPlay = !_args.scrollPlay ? _args.scrollPlay : true;
     var nextOnepage = _args.nextOnepage ? _args.nextOnepage : false;      
     _args.element = _args.element ? _args.element : 'cb-player';
-    if(scrollFixedView){
-        var style = document.createElement("style");
-        style.appendChild(document.createTextNode("#"+_args.element+".fix-video{position:fixed;top:50px;left:10px;width:300px !important;z-index:10;border-radius:4px;}"));
-        document.head.appendChild(style);
-
-        var _element = jQuery('#'+_args.element),
-            topVideo = _element.offset().top+_element.outerHeight();
-        jQuery(document).scroll(function(e){
-            var scrollTop = jQuery(document).scrollTop();    
-            if(scrollTop > topVideo){
-                _element.addClass('fix-video');
-            } else {
-                _element.removeClass('fix-video');
-            }
-        });
-    } 
     if(videoType(_args.file) =='dailymotion'){
         var link_embed = 'https://www.dailymotion.com/embed/video/'+get_id_video(_args.file),
-            _options = '?api=1&info=0&logo=0&social=1&related=0',
+            _options = '?api=1&info=0&logo=0&social=0&related=0',
             link_embed = _args.autostart ? link_embed+_options+'&autoPlay=1' : link_embed;
         jQuery('#'+_args.element).html("<div class=\"video-iframe\"><iframe src=\""+link_embed+"\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" allow=\"autoplay\"></iframe></div>");
     }else{
@@ -102,7 +86,10 @@ function _CBPlayer(_args){
             } else {
                 hidePowerjw.appendChild(document.createTextNode(cssCode));
             }
-            document.getElementsByTagName("head")[0].appendChild(hidePowerjw);                
+            document.getElementsByTagName("head")[0].appendChild(hidePowerjw); 
+            if(scrollFixedView){
+                scrollFixedView(_args.element);
+            }                
         });
         _player.on('playlistItem', function(){
             if (nextOnepage) {
@@ -135,7 +122,9 @@ function _CBPlayer(_args){
             })
         });
     }
-    
+    if(scrollFixedView){
+        scrollFixedView(_args.element);
+    } 
     if(scrollPlay){
         var _element = jQuery('#'+_args.element),
             topVideo = _element.offset().top+_element.outerHeight(),
@@ -152,6 +141,23 @@ function _CBPlayer(_args){
         });
     }    
 }
+function scrollFixedView(elem)
+{
+    var style = document.createElement("style");
+    style.appendChild(document.createTextNode("#"+elem+".fix-video{position:fixed;top:50px;left:10px;width:300px !important;z-index:10;border-radius:4px;}"));
+    document.head.appendChild(style);
+
+    var _element = jQuery('#'+elem),
+        topVideo = _element.offset().top+_element.outerHeight();
+    jQuery(document).scroll(function(e){
+        var scrollTop = jQuery(document).scrollTop();    
+        if(scrollTop > topVideo){
+            _element.addClass('fix-video');
+        } else {
+            _element.removeClass('fix-video');
+        }
+    });
+} 
 function isScrolledIntoView(elem)
 {
     var docViewTop = jQuery(window).scrollTop();
