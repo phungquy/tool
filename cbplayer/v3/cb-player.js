@@ -144,7 +144,7 @@ function _CBPlayer(_args){
 function _ScrollFixedView(elem)
 {
     var style = document.createElement("style");
-    style.appendChild(document.createTextNode("#"+elem+".fix-video{position:fixed;top:50px;right:0px;max-width:100% !important;width:400px;z-index:10;border-radius:4px;}"));
+    style.appendChild(document.createTextNode("#"+elem+".fix-video{position:fixed;top:50px;right:0px;max-width:100% !important;width:400px !important;z-index:10;border-radius:4px;}"));
     document.head.appendChild(style);
 
     var _element = jQuery('#'+elem),
