@@ -9,7 +9,7 @@ var CBPlayer = CBPlayer || (function() {
     return {
         init: function(Args) {
             _args = Args;
-            link_source = videoType(_args.file) =='youtube' ? '//content.jwplatform.com/libraries/5QOesuLn.js' : '//content.jwplatform.com/libraries/lqsWlr4Z.js';
+            link_source = videoType(_args.file) =='youtube' ? 'https://nghenhacthanhca.com/images/jwplayer7/jwplayer.js?t=467' : '//content.jwplatform.com/libraries/lqsWlr4Z.js';
         },
         get_player: function() {
             if (!isLoadjwplayer){
